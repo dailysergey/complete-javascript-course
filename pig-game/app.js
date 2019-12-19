@@ -19,15 +19,14 @@ function init() {
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true;
-    document.querySelector('.dice').style.display = 'none';
+    document.getElementById('dice-1').style.display = 'none';
+    document.getElementById('dice-2').style.display = 'none';
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';
     //first player
     document.getElementById('current-0').textContent = '0';
-    document.getElementById('current-2').textContent = '0';
     //second player
     document.getElementById('current-1').textContent = '0';
-    document.getElementById('current-3').textContent = '0';
 
     document.getElementById('name-0').textContent = 'Player 1';
     document.getElementById('name-1').textContent = 'Player 2';
@@ -37,9 +36,9 @@ function init() {
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-1-panel').classList.remove('active');
     document.querySelector('.player-0-panel').classList.add('active');
-    winnerScore = prompt('What score do u want to achive?', 100);
+    //winnerScore = prompt('What score do u want to achive?', 100);
     winnerScore = 100;
-    parseInt(winnerScore, 10);
+    //parseInt(winnerScore, 10);
 }
 
 document.querySelector('.btn-new').addEventListener('click', init);
@@ -57,14 +56,13 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         document.getElementById('dice-2').style.display = 'block';
         document.getElementById('dice-1').src = 'dice-' + dice1 + '.png';
         document.getElementById('dice-2').src = 'dice-' + dice2 + '.png';
-        diceDom.style.display = 'block';
-        diceDom.src = 'dice-' + dice + '.png';
+
 
 
         //3. update the round score if th rolled number was not a 1
-        if (dice !== 1) {
+        if (dice1 !== 1 && dice2 !== 1) {
             //Add score
-            roundScore += dice;
+            roundScore += dice1 + dice2;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
         } else {
             console.log('Next player turn');
@@ -72,14 +70,7 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
             nextPlayer();
             previousScore = undefined;
         }
-        //challenge
 
-        if (dice == previousScore && previousScore == 6) {
-            scores[activePlayer] = 0;
-            document.getElementById('score-' + activePlayer).textContent = '0';
-            nextPlayer();
-        }
-        previousScore = dice;
     }
 })
 

@@ -104,7 +104,7 @@ body {
     margin: 0 auto;
     padding: 12px;
     text-align: center;
-    display: inline-block;
+    display: block;
 }
 
 .player-current-label {
