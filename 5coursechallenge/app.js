@@ -28,13 +28,27 @@
 	var q3 = new Question('How long does it take?', ['1 minute', '5 minutes', '1 year'], 1);
 	var questions = [q1, q2, q3];
 
+	function score() {
+		var sc = 0;
+		return function (correct) {
+			if (correct) {
+				sc++;
+			}
+			return score;
+		}
+	}
+	var keepScore = score();
+
 	function nexQuestion() {
 
 		var n = Math.floor(Math.random() * questions.length);
 		questions[n].displayQuestion();
-		var answer = parseInt(prompt(questions[n].question));
-		questions[n].checkAnswer(answer);
-		nexQuestion();
+		var answer = prompt(questions[n].question);
+		if (answer !== 'exit') {
+			questions[n].checkAnswer(parseInt(answer));
+			nexQuestion();
+		}
+
 	}
 	nexQuestion();
 })();
