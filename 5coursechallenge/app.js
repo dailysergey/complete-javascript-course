@@ -12,17 +12,23 @@
 			console.log(i + ': ' + this.answer[i]);
 		}
 	}
-	Question.prototype.checkAnswer = function (maybeAnswer) {
+	Question.prototype.checkAnswer = function (ans, callback) {
 		console.log('Right answer: ' + this.rightAnswer);
-		console.log('Your answer: ' + maybeAnswer);
-		if (this.rightAnswer === maybeAnswer) {
+		console.log('Your answer: ' + ans);
+		var sc;
+		if (this.rightAnswer === ans) {
 			alert('Congrats, you are right!');
+			sc = callback(true);
 		} else {
 			alert('Sorry, try another time.');
+			sc = callback(false);
 		}
+		this.displayScore(sc);
 	}
-
-
+	Question.prototype.displayScore = function (score) {
+		console.log('Your current score is: ' + score);
+		console.log('------------------------');
+	}
 	var q1 = new Question("What\'s up?", ['Okay', 'Alright', 'Can be better!'], 2);
 	var q2 = new Question('How is on duty today', ['Jonas', 'John', 'Me'], 0);
 	var q3 = new Question('How long does it take?', ['1 minute', '5 minutes', '1 year'], 1);
@@ -34,7 +40,7 @@
 			if (correct) {
 				sc++;
 			}
-			return score;
+			return sc;
 		}
 	}
 	var keepScore = score();
@@ -45,10 +51,9 @@
 		questions[n].displayQuestion();
 		var answer = prompt(questions[n].question);
 		if (answer !== 'exit') {
-			questions[n].checkAnswer(parseInt(answer));
+			questions[n].checkAnswer(parseInt(answer), keepScore);
 			nexQuestion();
 		}
-
 	}
 	nexQuestion();
 })();
